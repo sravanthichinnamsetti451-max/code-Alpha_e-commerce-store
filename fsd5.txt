@@ -1,0 +1,33 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+class Project(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Task(models.Model):
+    STATUS = (
+        ('TODO', 'To Do'),
+        ('PROGRESS', 'In Progress'),
+        ('DONE', 'Completed'),
+    )
+
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE)
+    due_date = models.DateField()
+    status = models.CharField(max_length=20, choices=STATUS)
+
+class Comment(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField()
+from django.shortcuts import render, redirect
+from .models import Project
+
+def dashboard(request):
+    projects = Project.objects.all()
+    return render(request, 'dashboard.html',
+                  {'projects': projects})

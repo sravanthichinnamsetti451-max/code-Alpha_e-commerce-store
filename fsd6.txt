@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TaskFlow Dashboard</title>
+</head>
+<body>
+
+<h1>Project Dashboard</h1>
+
+<a href="#">Create New Project</a>
+
+<ul>
+{% for project in projects %}
+    <li>{{ project.name }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
