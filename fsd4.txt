@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Social Media</title>
+</head>
+<body>
+
+<h1>Social Media Platform</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <textarea name="content"></textarea>
+    <button type="submit">Post</button>
+</form>
+
+{% for post in posts %}
+<div>
+    <h3>{{ post.user.username }}</h3>
+    <p>{{ post.content }}</p>
+</div>
+{% endfor %}
+
+</body>
+</html>
